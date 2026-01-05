@@ -150,21 +150,29 @@
 </div>
 
 <script>
-  const scriptURL = "https://script.google.com/macros/s/AKfycbxQxkL2CkT3hDI8IaPaDBb93nnKMpk1ng17DFrpnFRfDe-QHjo4FIPg8aZDiMT_qbOrbg/exec";
-  const form = document.getElementById("guestForm");
-  const msg = document.getElementById("msg");
+const scriptURL = "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLjOfFOJHnJH6UDOaqjk9y_tBXPGNAx-TZ4xoIuN7ei3qmT3kyPeORRHrZRNdZXZEdtVbyh_rFBrqCdQxONAZVHtMynZ4LRieDyX5dpE59vinyHvEqLYTiCqBI7XRaSsn69v8nSFSov_hmHghh8BwXv1w5pyjfghHRYTGvP_tarnPadQLtkEKizYe_i_CZx0RV3IucJ9ULhKA2N7ittYYcwD0JrrNFcWffq6TS9KdTgZe_d0jkgtGaA90YP-621uyra0alUYzsmbEJYLAvrCnoDcX0qyBg&lib=Ms-KLbF8Uf1ufafhzKPQvCq4m8VHoDSnz";
 
-  form.addEventListener("submit", e => {
+document.getElementById("guestForm").addEventListener("submit", function(e){
     e.preventDefault();
-    fetch(scriptURL, { method: "POST", body: new FormData(form)})
-      .then(response => {
-        msg.innerHTML = "✅ Registration Successful!";
-        form.reset();
-      })
-      .catch(error => {
-        msg.innerHTML = "❌ Error! Please try again.";
-      });
-  });
+
+    document.getElementById("msg").innerHTML =
+      "<span style='color:#555'>Submitting...</span>";
+
+    fetch(scriptURL, {
+        method: "POST",
+        body: new FormData(this),
+        mode: "no-cors"
+    })
+    .then(() => {
+        document.getElementById("msg").innerHTML =
+          "<span style='color:green'>✔ Registration Successful</span>";
+        this.reset();
+    })
+    .catch(() => {
+        document.getElementById("msg").innerHTML =
+          "<span style='color:red'>❌ Error! Please try again.</span>";
+    });
+});
 </script>
 
 </body>
