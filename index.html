@@ -1,55 +1,96 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>WeWorld Day – Guest Registration 10th February 2026 </title>
+  <title>WeWorld Day | Grand Launching Ceremony</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="png.png" type="image/png">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #000000, #1c1c1c);
+      background: linear-gradient(135deg, #1d2671, #c33764);
       margin: 0;
       padding: 0;
-      color: #fff;
     }
+
     .container {
-      max-width: 450px;
-      background: #ffffff;
-      color: #000;
-      margin: 40px auto;
+      max-width: 520px;
+      background: #fff;
+      margin: 30px auto;
       padding: 25px;
       border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
     }
+
+    .logo {
+      text-align: center;
+    }
+
+    .logo img {
+      max-width: 120px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #c3a10b;
+      margin-bottom: 5px;
+    }
+
     h2 {
       text-align: center;
-      margin-bottom: 20px;
-      color: #b8860b;
+      font-size: 18px;
+      margin-top: 0;
+      color: #444;
     }
-    input, select, button {
+
+    .event-info {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+
+    input, select {
       width: 100%;
-      padding: 12px;
-      margin-top: 12px;
+      padding: 10px;
+      margin-top: 5px;
       border-radius: 6px;
       border: 1px solid #ccc;
-      font-size: 15px;
+      font-size: 14px;
     }
+
     button {
-      background: #b8860b;
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      background: #1d2671;
       color: #fff;
-      font-size: 16px;
       border: none;
+      border-radius: 8px;
+      font-size: 16px;
       cursor: pointer;
     }
+
     button:hover {
-      background: #9c7300;
+      background: #c33764;
     }
+
     .success {
       text-align: center;
       color: green;
+      font-weight: bold;
       margin-top: 15px;
-      display: none;
     }
   </style>
 </head>
@@ -57,45 +98,72 @@
 <body>
 
 <div class="container">
-  <h2>Guest Registration</h2>
 
+  <!-- Logo -->
+  <div class="logo">
+    <img src="logo.png.png" alt="WeWorld Logo">
+  </div>
+
+  <h1>WeWorld Marketing Pvt. Ltd.</h1>
+  <h2>Grand Launching Ceremony</h2>
+
+  <div class="event-info">
+    <h3>WeWorldDay</h3>
+     10th February 2026<br>
+     Kolkata
+  </div>
+
+  <!-- FORM -->
   <form id="guestForm">
-    <input type="text" name="fullName" placeholder="Full Name" required>
-    <input type="text" name="gender" placeholder="Gender" required>
-    <input type="text" name="address" placeholder="Address" required>
-    <input type="text" name="cityState" placeholder="City / State" required>
-    <input type="text" name="personalRank" placeholder="Personal Rank">
-    <input type="text" name="teamLeader" placeholder="Team Leader Name">
-    <input type="email" name="email" placeholder="Email ID" required>
+
+    <label>Full Name *</label>
+    <input type="text" name="fullName" required>
+
+    <label>Gender *</label>
+    <select name="gender" required>
+      <option value="">Select</option>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+    </select>
+
+    <label>Address *</label>
+    <input type="text" name="address" required>
+
+    <label>City / State *</label>
+    <input type="text" name="cityState" required>
+
+    <label>Ticket Product *</label>
+    <select name="ticketProduct" required>
+      <option value="">Select</option>
+      <option>WePower</option>
+    </select>
+
+    <label>Mobile Numbe</label>
+    <input type="tel" name="mobile">
 
     <button type="submit">Submit</button>
+
+    <div class="success" id="msg"></div>
   </form>
 
-  <div class="success" id="successMsg">
-    ✅ Registration Successful!
-  </div>
 </div>
 
 <script>
+  const scriptURL = "https://script.google.com/macros/s/AKfycbxQxkL2CkT3hDI8IaPaDBb93nnKMpk1ng17DFrpnFRfDe-QHjo4FIPg8aZDiMT_qbOrbg/exec";
   const form = document.getElementById("guestForm");
+  const msg = document.getElementById("msg");
 
-  form.addEventListener("submit", function(e) {
+  form.addEventListener("submit", e => {
     e.preventDefault();
-
-    const formData = new FormData(form);
-
-    fetch("PASTE_YOUR_WEBAPP_URL_HERE", {
-      method: "POST",
-      body: formData
-    })
-    .then(res => res.text())
-    .then(() => {
-      document.getElementById("successMsg").style.display = "block";
-      form.reset();
-    })
-    .catch(() => {
-      alert("Error! Please try again.");
-    });
+    fetch(scriptURL, { method: "POST", body: new FormData(form)})
+      .then(response => {
+        msg.innerHTML = "✅ Registration Successful!";
+        form.reset();
+      })
+      .catch(error => {
+        msg.innerHTML = "❌ Error! Please try again.";
+      });
   });
 </script>
 
