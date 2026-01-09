@@ -150,30 +150,25 @@
 </div>
 
 <script>
-const scriptURL = "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLjOfFOJHnJH6UDOaqjk9y_tBXPGNAx-TZ4xoIuN7ei3qmT3kyPeORRHrZRNdZXZEdtVbyh_rFBrqCdQxONAZVHtMynZ4LRieDyX5dpE59vinyHvEqLYTiCqBI7XRaSsn69v8nSFSov_hmHghh8BwXv1w5pyjfghHRYTGvP_tarnPadQLtkEKizYe_i_CZx0RV3IucJ9ULhKA2N7ittYYcwD0JrrNFcWffq6TS9KdTgZe_d0jkgtGaA90YP-621uyra0alUYzsmbEJYLAvrCnoDcX0qyBg&lib=Ms-KLbF8Uf1ufafhzKPQvCq4m8VHoDSnz";
-
 document.getElementById("guestForm").addEventListener("submit", function(e){
     e.preventDefault();
 
-    document.getElementById("msg").innerHTML =
-      "<span style='color:#555'>Submitting...</span>";
+    const formData = new FormData(this);
 
-    fetch(scriptURL, {
+    fetch("https://script.google.com/macros/s/AKfycbxi8CTnIDd1_O-3zjtuLFgIC9HwRkvKca5jQVK7A3e0yXgczbGB3JuGcNDpcqEssPA/exec", {
         method: "POST",
-        body: new FormData(this),
-        mode: "no-cors"
+        body: formData
     })
     .then(() => {
-        document.getElementById("msg").innerHTML =
-          "<span style='color:green'>✔ Registration Successful</span>";
-        this.reset();
+        document.getElementById("guestForm").reset();
+        document.getElementById("success").style.display = "block";
     })
     .catch(() => {
-        document.getElementById("msg").innerHTML =
-          "<span style='color:red'>❌ Error! Please try again.</span>";
+        alert("Error! Data submit nahi hua");
     });
 });
 </script>
+<!-- 🔼 YAHAN TAK -->
 
 </body>
 </html>
