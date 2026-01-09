@@ -164,29 +164,23 @@
 </div>
 
 <script>
-const scriptURL = "https://script.google.com/macros/library/d/1aZSuw83DYcPHvHFvFT6iVNMdLSvZMuC6pyXzwZQG_C3eSpgEB-e0sUGh/1";
-
 document.getElementById("guestForm").addEventListener("submit", function(e){
-    e.preventDefault();
-
-    document.getElementById("msg").innerHTML =
-      "<span style='color:#555'>Submitting...</span>";
-
-    fetch(scriptURL, {
-        method: "POST",
-        body: new FormData(this),
-        mode: "no-cors"
-    })
-    .then(() => {
-        document.getElementById("msg").innerHTML =
-          "<span style='color:green'>✔ Registration Successful</span>";
-        this.reset();
-    })
-    .catch(() => {
-        document.getElementById("msg").innerHTML =
-          "<span style='color:red'>❌ Error! Please try again.</span>";
-    });
+  e.preventDefault();
+  fetch("https://script.google.com/macros/s/AKfycbxi8CTnIDd1_O-3zjtuLFgIC9HwRkvKca5jQVK7A3e0yXgczbGB3JuGcNDpcqEssPA/exec", {
+    method: "POST",
+    body: new FormData(this)
+  })
+  .then(res => res.text())
+  .then(msg => {
+    if(msg === "success") {
+      document.getElementById("successMsg").style.display = "block";
+      this.reset();
+    } else {
+      alert("Error! Data submit nahi hua");
+    }
+  });
 });
+
 </script>
 
 </body>
