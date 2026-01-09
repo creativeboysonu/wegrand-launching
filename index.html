@@ -127,6 +127,20 @@
       <option>Other</option>
     </select>
 
+    <label>Personal Rank*</label>
+    <select name="Personal Rank" required>
+      <option value="">Select</option>
+      <option>Ignite</option>
+      <option>Promoter</option>
+      <option>Champion</option>
+      <option>Ambassador</option>
+      <option>Entrepreneur</option>
+      <option>Grand Master</option>
+      <option>Legend</option>
+    </select>
+    
+    
+
     <label>Address *</label>
     <input type="text" name="address" required>
 
@@ -150,25 +164,30 @@
 </div>
 
 <script>
+const scriptURL = "https://script.google.com/macros/library/d/1aZSuw83DYcPHvHFvFT6iVNMdLSvZMuC6pyXzwZQG_C3eSpgEB-e0sUGh/1";
+
 document.getElementById("guestForm").addEventListener("submit", function(e){
     e.preventDefault();
 
-    const formData = new FormData(this);
+    document.getElementById("msg").innerHTML =
+      "<span style='color:#555'>Submitting...</span>";
 
-    fetch("https://script.google.com/macros/s/AKfycbxi8CTnIDd1_O-3zjtuLFgIC9HwRkvKca5jQVK7A3e0yXgczbGB3JuGcNDpcqEssPA/exec", {
+    fetch(scriptURL, {
         method: "POST",
-        body: formData
+        body: new FormData(this),
+        mode: "no-cors"
     })
     .then(() => {
-        document.getElementById("guestForm").reset();
-        document.getElementById("success").style.display = "block";
+        document.getElementById("msg").innerHTML =
+          "<span style='color:green'>✔ Registration Successful</span>";
+        this.reset();
     })
     .catch(() => {
-        alert("Error! Data submit nahi hua");
+        document.getElementById("msg").innerHTML =
+          "<span style='color:red'>❌ Error! Please try again.</span>";
     });
 });
 </script>
-<!-- 🔼 YAHAN TAK -->
 
 </body>
 </html>
