@@ -159,31 +159,23 @@
   </form>
 
 </div>
-
 <script>
-document.getElementById("guestForm").addEventListener("submit", function(e){
-  e.preventDefault();
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwNPUbEZzHeyhtq8wxHIeEm3H3pSUNvXpIE0SwdNt7XI7h8DNFEJyzI9dofygUivZHj/exec'
+            const form = document.forms['guestForm']
+          
+            form.addEventListener('submit', e => {
+              e.preventDefault()
+              fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => alert("Thanks for Joining the WeWorld Day Events"))
+                .catch(error => console.error('Error!', error.message))
+            })
+          </script>
 
-  fetch("https://script.google.com/macros/s/AKfycbyKoFvPqQNwYb1Mry3WHNniGgZS0DJWATWRv_qce2N6L1TUShYTtpvpy9XcEEYgcM7N/exec", {
-    method: "POST",
-    body: new FormData(this)
-  })
-  .then(res => res.text())
-  .then(text => {
-    if (text.trim() === "success") {
-      document.getElementById("msg").innerHTML = "✅ Registration Successful!";
-      this.reset();
-    } else {
-      alert("❌ Error: Data Sheet me nahi gaya");
-    }
-  })
-  .catch(err => {
-    alert("❌ Network Error");
-    console.log(err);
-  });
-});
-</script>
 
+
+<br>
 
 </body>
+
 </html>
+
