@@ -99,7 +99,6 @@
 
 <div class="container">
 
-  <!-- Logo -->
   <div class="logo">
     <img src="logo.png.png" alt="WeWorld Logo">
   </div>
@@ -108,9 +107,9 @@
   <h2>Grand Launching Ceremony</h2>
 
   <div class="event-info">
-    <h3>WeWorldDay</h3>
-     10th February 2026<br>
-     Kolkata
+    <h3>WeWorld Day</h3>
+    10th February 2026<br>
+    Kolkata
   </div>
 
   <!-- FORM -->
@@ -127,8 +126,8 @@
       <option>Other</option>
     </select>
 
-    <label>Personal Rank*</label>
-    <select name="Personal Rank" required>
+    <label>Personal Rank *</label>
+    <select name="personalRank" required>
       <option value="">Select</option>
       <option>Ignite</option>
       <option>Promoter</option>
@@ -138,8 +137,6 @@
       <option>Grand Master</option>
       <option>Legend</option>
     </select>
-    
-    
 
     <label>Address *</label>
     <input type="text" name="address" required>
@@ -153,7 +150,7 @@
       <option>WePower</option>
     </select>
 
-    <label>Mobile Numbe</label>
+    <label>Mobile Number (Optional)</label>
     <input type="tel" name="mobile">
 
     <button type="submit">Submit</button>
@@ -166,22 +163,27 @@
 <script>
 document.getElementById("guestForm").addEventListener("submit", function(e){
   e.preventDefault();
-  fetch("https://script.google.com/macros/s/AKfycbxi8CTnIDd1_O-3zjtuLFgIC9HwRkvKca5jQVK7A3e0yXgczbGB3JuGcNDpcqEssPA/exec", {
+
+  fetch("https://script.google.com/macros/s/AKfycbyKoFvPqQNwYb1Mry3WHNniGgZS0DJWATWRv_qce2N6L1TUShYTtpvpy9XcEEYgcM7N/exec", {
     method: "POST",
     body: new FormData(this)
   })
   .then(res => res.text())
-  .then(msg => {
-    if(msg === "success") {
-      document.getElementById("successMsg").style.display = "block";
+  .then(text => {
+    if (text.trim() === "success") {
+      document.getElementById("msg").innerHTML = "✅ Registration Successful!";
       this.reset();
     } else {
-      alert("Error! Data submit nahi hua");
+      alert("❌ Error: Data Sheet me nahi gaya");
     }
+  })
+  .catch(err => {
+    alert("❌ Network Error");
+    console.log(err);
   });
 });
-
 </script>
+
 
 </body>
 </html>
